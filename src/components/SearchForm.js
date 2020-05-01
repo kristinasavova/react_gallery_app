@@ -1,10 +1,11 @@
 import React, { Component } from 'react'; 
 import PropTypes from 'prop-types'; 
+import { withRouter } from 'react-router-dom';
 
 class SearchForm extends Component {
 
     static propTypes = {
-        onSearch: PropTypes.func.isRequired 
+        onSearch: PropTypes.func.isRequired
     }
 
     state = {
@@ -17,7 +18,9 @@ class SearchForm extends Component {
 
     handleSubmit = event => {
         event.preventDefault ();
-        this.props.onSearch (this.query.value) // the value of the input from the DOM 
+        this.props.onSearch (this.query.value); // the value of the input from the DOM 
+        const path = `/search/${this.query.value}`;
+        this.props.history.push (path); 
         event.currentTarget.reset (); 
     }
     
@@ -44,4 +47,4 @@ class SearchForm extends Component {
     };
 };
 
-export default SearchForm; 
+export default withRouter (SearchForm); 

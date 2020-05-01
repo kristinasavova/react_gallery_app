@@ -10,7 +10,7 @@ const PhotoContainer = props => {
     if (results.length > 0) {
         photos = results.map (photo => 
             <Photo 
-                src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_n.jpg`} 
+                src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`} 
                 key={photo.id} 
                 alt={photo.title} /> );
     } else {
