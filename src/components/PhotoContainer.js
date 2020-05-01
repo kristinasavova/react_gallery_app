@@ -1,16 +1,36 @@
-import React, { Component } from 'react'; 
-import Photo from './Photo';
-import NotFound from './NotFound'; 
+import React from 'react'; 
+import PropTypes from 'prop-types'; 
+import Photo from './Photo'; 
+import NotFound from './NotFound';
 
-class PhotoContainer extends Component {
-    render () {
-        return (
-            <div className="photo-container">
-                <Photo />
-                <NotFound />
-            </div>
-        );
-    };
+const PhotoContainer = props => {
+
+    const results = props.data;
+    let photos; 
+    if (results.length > 0) {
+        photos = results.map (photo => 
+            <Photo 
+                src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_n.jpg`} 
+                key={photo.id} 
+                alt={photo.title} /> );
+    } else {
+        photos = <NotFound />
+    }
+
+    
+    return (
+        <div className="photo-container">
+            <h2>Results</h2>
+            <ul>
+                { photos }
+            </ul>
+        </div>
+    );
+    
 };
+
+PhotoContainer.propTypes = {
+    data: PropTypes.array.isRequired
+}
 
 export default PhotoContainer; 
