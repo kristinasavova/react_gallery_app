@@ -5,6 +5,9 @@ import NotFound from './NotFound';
 
 const PhotoContainer = props => {
 
+/* I have troubles with this conditional statement: sometimes NotFound component is 
+displayed while the data is loading, despite using !props.Loading as a condition. */
+    
     const results = props.data;
     let photos; 
     // Render photos if search has results and the results are loaded  

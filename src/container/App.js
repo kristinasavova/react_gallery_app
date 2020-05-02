@@ -12,7 +12,7 @@ import apiKey from '../config';
 import SearchForm from '../components/SearchForm';
 import Nav from '../components/Nav';
 import PhotoContainer from '../components/PhotoContainer';
-import NotFound from '../components/NotFound';
+import RouteNotFound from '../components/RouteNotFound';
 
 class App extends Component {
 
@@ -108,22 +108,30 @@ class App extends Component {
                         <Route exact path="/" render={() => 
                             (this.state.loading) ?
                                 <h3>Loading...</h3> :
-                                <PhotoContainer data={this.state.initialData} />} 
+                                <PhotoContainer 
+                                    data={this.state.initialData}
+                                    isLoading={this.state.loading} />} 
                         />
                         <Route path="/mountains" render={() => 
                             (this.state.loading) ?
                                 <h3>Loading...</h3> :
-                                <PhotoContainer data={this.state.mountains} />} 
+                                <PhotoContainer 
+                                    data={this.state.mountains}
+                                    isLoading={this.state.loading} />} 
                         />
                         <Route path="/lake" render={() => 
                             (this.state.loading) ?
                                 <h3>Loading...</h3> :
-                                <PhotoContainer data={this.state.lake} />} 
+                                <PhotoContainer 
+                                    data={this.state.lake}
+                                    isLoading={this.state.loading} />} 
                         />
                         <Route path="/forest" render={() => 
                             (this.state.loading) ?
                                 <h3>Loading...</h3> :
-                                <PhotoContainer data={this.state.forest} />} 
+                                <PhotoContainer 
+                                    data={this.state.forest}
+                                    isLoading={this.state.loading} />} 
                         /> 
                         <Route path="/search" render={() => 
                             (this.state.loading) ?
@@ -132,7 +140,7 @@ class App extends Component {
                                     data={this.state.photos} 
                                     isLoading={this.state.loading} />} 
                         />
-                        <Route component={NotFound} />
+                        <Route component={RouteNotFound} />
                     </Switch> 
                 </div>
             </BrowserRouter>

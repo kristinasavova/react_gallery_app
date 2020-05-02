@@ -75,7 +75,7 @@ input {
 .photo-container ul li {
   width: 220px;
   height: 165px;
-  overflow: hidden;
+  overflow: hidden; 
   margin-bottom: 15px;
 }
 
@@ -86,11 +86,17 @@ input {
 }
 
 .photo-container li:hover img {
-  transform: scale(1.65);
+  transform: scale(1.75);
 }
 
 .photo-container .not-found {
   width: 100%;
+}
+
+.page-not-found {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  font-size: 1.5em;
 }
 
 @media only screen and (max-width: 767px)  {
@@ -121,5 +127,14 @@ input {
   .main-nav li {
     margin: 10px;
     width: 100px;
+  }
+
+  .photo-container ul li:hover {
+    overflow: visible;
+    z-index: 5;
+  }
+
+  .photo-container li:hover img {
+    border: solid white 3px;
   }
 }
