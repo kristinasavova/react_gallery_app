@@ -5,8 +5,8 @@ A small image gallery app is built in a modular fashion using JSX. React Router 
 
 In order to get a Flickr API key, you need to create a Flickr API account and apply for a [non-commercial API key](https://www.flickr.com/services/apps/create/apply/).  
 Set up a `config.js` file in the `src` directory. The config.js file should look like this:  
-``` const apiKey = 'YOUR API KEY';
-    export default apiKey;  ``` 
+```const apiKey = 'YOUR API KEY';
+export default apiKey;``` 
        
 ## Available Scripts
 
