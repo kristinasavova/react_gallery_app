@@ -47,7 +47,8 @@ class App extends Component {
         axios.get (`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=mountains,lake,forest&per_page=24&format=json&nojsoncallback=1`)
             .then (response => {
                 this.setState ({
-                    initialData: response.data.photos.photo
+                    initialData: response.data.photos.photo,
+                    loading: false
                 })
             })
             .catch (error => {
@@ -58,7 +59,8 @@ class App extends Component {
         axios.get (`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=mountains&per_page=24&format=json&nojsoncallback=1`)
             .then (response => {
                 this.setState ({
-                    mountains: response.data.photos.photo 
+                    mountains: response.data.photos.photo,
+                    loading: false 
                 })
             })
             .catch (error => {
@@ -69,7 +71,8 @@ class App extends Component {
         axios.get (`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=lake&per_page=24&format=json&nojsoncallback=1`)
             .then (response => {
                 this.setState ({
-                    lake: response.data.photos.photo
+                    lake: response.data.photos.photo,
+                    loading: false 
                 })
             })
             .catch (error => {
@@ -80,7 +83,8 @@ class App extends Component {
         axios.get (`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=forest&per_page=24&format=json&nojsoncallback=1`)
             .then (response => {
                 this.setState ({
-                    forest: response.data.photos.photo
+                    forest: response.data.photos.photo,
+                    loading: false
                 })
             })
             .catch (error => {
@@ -98,15 +102,36 @@ class App extends Component {
                     <Nav />
                     {/* Switch only renders the first Route that matches the URL */}
                     <Switch>
-                        <Route exact path="/" render={() => <PhotoContainer data={this.state.initialData} />} />
-                        <Route path="/mountains" render={() => <PhotoContainer data={this.state.mountains} />} />
-                        <Route path="/lake" render={() => <PhotoContainer data={this.state.lake} />} />
-                        <Route path="/forest" render={() => <PhotoContainer data={this.state.forest} />} /> 
+                        {/* Render PhotoContainer for each route passing a correspoding data from state as props. 
+                        Ternary expressions are used to display `Loading...` if data for the PhotoContainer is 
+                        not yet loaded (a delay happens when URL is passed directly into the address bar). */}
+                        <Route exact path="/" render={() => 
+                            (this.state.loading) ?
+                                <h3>Loading...</h3> :
+                                <PhotoContainer data={this.state.initialData} />} 
+                        />
+                        <Route path="/mountains" render={() => 
+                            (this.state.loading) ?
+                                <h3>Loading...</h3> :
+                                <PhotoContainer data={this.state.mountains} />} 
+                        />
+                        <Route path="/lake" render={() => 
+                            (this.state.loading) ?
+                                <h3>Loading...</h3> :
+                                <PhotoContainer data={this.state.lake} />} 
+                        />
+                        <Route path="/forest" render={() => 
+                            (this.state.loading) ?
+                                <h3>Loading...</h3> :
+                                <PhotoContainer data={this.state.forest} />} 
+                        /> 
                         <Route path="/search" render={() => 
                             (this.state.loading) ?
                                 <h3>Loading...</h3> :
-                                <PhotoContainer data={this.state.photos} />} 
-                            />
+                                <PhotoContainer 
+                                    data={this.state.photos} 
+                                    isLoading={this.state.loading} />} 
+                        />
                         <Route component={NotFound} />
                     </Switch> 
                 </div>

@@ -7,17 +7,18 @@ const PhotoContainer = props => {
 
     const results = props.data;
     let photos; 
-    if (results.length > 0) {
+    // Render photos if search has results and the results are loaded  
+    if (results.length > 0 && !props.isLoading) {
         photos = results.map (photo => 
             <Photo 
                 src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`} 
                 key={photo.id} 
                 alt={photo.title} /> );
-    } else {
-        photos = <NotFound />
+    // Render NotFound if search has no results and loading is over
+    } else if (results.length === 0 && !props.isLoading) { 
+        photos = <NotFound />;
     }
 
-    
     return (
         <div className="photo-container">
             <h2>{ results.length > 0 ? 'Results' : null }</h2>
@@ -30,7 +31,8 @@ const PhotoContainer = props => {
 };
 
 PhotoContainer.propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired
 }
 
 export default PhotoContainer; 
