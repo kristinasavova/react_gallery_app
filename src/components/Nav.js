@@ -1,20 +1,17 @@
 import React from 'react'; 
 import { 
-    NavLink, 
-    Route
+    NavLink
 } from 'react-router-dom'; 
-import PhotoContainer from './PhotoContainer';
 
-const Nav = ({ match }, props) => {
+const Nav = () => {
     
     return (
         <nav className="main-nav">
             <ul> 
-                <li><NavLink to={`/mountains`}>Mountains</NavLink></li>
-                <li><NavLink to={`/bears}`}>Bears</NavLink></li>
-                <li><NavLink to={`/forest}`}>Forest</NavLink></li> 
+                <li><NavLink to={'/mountains'}>Mountains</NavLink></li>
+                <li><NavLink to={'/lake'}>Lake</NavLink></li>
+                <li><NavLink to={'/forest'}>Forest</NavLink></li> 
             </ul>
-            {/* <Route path={`/mountains`} render={() => } />  */}
         </nav>     
     );
  };
