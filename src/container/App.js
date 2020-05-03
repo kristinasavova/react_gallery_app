@@ -102,43 +102,26 @@ class App extends Component {
                     <Nav />
                     {/* Switch only renders the first Route that matches the URL */}
                     <Switch>
-                        {/* Render PhotoContainer for each route passing a correspoding data from state as props. 
-                        Ternary expressions are used to display `Loading...` if data for the PhotoContainer is 
-                        not yet loaded (a delay happens when URL is passed directly into the address bar). */}
-                        <Route exact path="/" render={() => 
-                            (this.state.loading) ?
-                                <h3>Loading...</h3> :
-                                <PhotoContainer 
-                                    data={this.state.initialData}
-                                    isLoading={this.state.loading} />} 
+                        {/* Render PhotoContainer for each route passing a correspoding data from state as props. */}
+                        <Route exact path="/" render={() => <PhotoContainer 
+                            data={this.state.initialData}
+                            isLoading={this.state.loading} />} 
                         />
-                        <Route path="/mountains" render={() => 
-                            (this.state.loading) ?
-                                <h3>Loading...</h3> :
-                                <PhotoContainer 
-                                    data={this.state.mountains}
-                                    isLoading={this.state.loading} />} 
+                        <Route path="/mountains" render={() => <PhotoContainer 
+                            data={this.state.mountains} 
+                            isLoading={this.state.loading} />} 
                         />
-                        <Route path="/lake" render={() => 
-                            (this.state.loading) ?
-                                <h3>Loading...</h3> :
-                                <PhotoContainer 
-                                    data={this.state.lake}
-                                    isLoading={this.state.loading} />} 
+                        <Route path="/lake" render={() => <PhotoContainer 
+                            data={this.state.lake}
+                            isLoading={this.state.loading} />}
                         />
-                        <Route path="/forest" render={() => 
-                            (this.state.loading) ?
-                                <h3>Loading...</h3> :
-                                <PhotoContainer 
-                                    data={this.state.forest}
-                                    isLoading={this.state.loading} />} 
+                        <Route path="/forest" render={() => <PhotoContainer 
+                            data={this.state.forest}
+                            isLoading={this.state.loading} />}
                         /> 
-                        <Route path="/search" render={() => 
-                            (this.state.loading) ?
-                                <h3>Loading...</h3> :
-                                <PhotoContainer 
-                                    data={this.state.photos} 
-                                    isLoading={this.state.loading} />} 
+                        <Route path="/search" render={() => <PhotoContainer 
+                            data={this.state.photos}
+                            isLoading={this.state.loading} />}
                         />
                         <Route component={RouteNotFound} />
                     </Switch> 
