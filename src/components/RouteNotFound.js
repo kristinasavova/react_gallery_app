@@ -8,7 +8,7 @@ const RouteNotFound = () => {
             <p className="page-not-found">WE COULD'T FIND THE PAGE YOU'RE LOOKING FOR.</p>
             <nav className="main-nav">
                 <ul>
-                    <li><Link exact to={'/'}>Go Home</Link></li>
+                    <li><Link to={'/'}>Go Home</Link></li>
                 </ul>
             </nav>
         </div>

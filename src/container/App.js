@@ -17,15 +17,11 @@ import RouteNotFound from '../components/RouteNotFound';
 class App extends Component {
 
     state = {
-        initialData: [],
         photos: [],
-        mountains: [],
-        lake: [],
-        forest: [],
         loading: true
     };
 
-    performSearch = (query) => { 
+    performSearch = (query = 'nature') => { 
         // Axios automatically returns the response in JSON format   
         axios.get (`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
             // A callback function that updates the gif state 
@@ -39,57 +35,13 @@ class App extends Component {
             .catch (error => {
                 console.log ('Error fetching and parsing data', error); 
             });
+        this.setState ({
+            loading: true 
+        });
     }; 
 
     componentDidMount () {
-
-        // Get initial data for the `/` route 
-        axios.get (`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=mountains,lake,forest&per_page=24&format=json&nojsoncallback=1`)
-            .then (response => {
-                this.setState ({
-                    initialData: response.data.photos.photo,
-                    loading: false
-                })
-            })
-            .catch (error => {
-                console.log ('Error fetching and parsing data', error)
-            }); 
-
-        // Get data for the `/mountains` route 
-        axios.get (`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=mountains&per_page=24&format=json&nojsoncallback=1`)
-            .then (response => {
-                this.setState ({
-                    mountains: response.data.photos.photo,
-                    loading: false 
-                })
-            })
-            .catch (error => {
-                console.log ('Error fetching and parsing data', error)
-            }); 
-        
-        // Get data for the `/lake` route 
-        axios.get (`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=lake&per_page=24&format=json&nojsoncallback=1`)
-            .then (response => {
-                this.setState ({
-                    lake: response.data.photos.photo,
-                    loading: false 
-                })
-            })
-            .catch (error => {
-                console.log ('Error fetching and parsing data', error)
-            });
-
-        // Get data for the `/forest` route 
-        axios.get (`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=forest&per_page=24&format=json&nojsoncallback=1`)
-            .then (response => {
-                this.setState ({
-                    forest: response.data.photos.photo,
-                    loading: false
-                })
-            })
-            .catch (error => {
-                console.log ('Error fetching and parsing data', error)
-            });
+        this.performSearch ();
     }; 
 
     render () {
@@ -99,26 +51,18 @@ class App extends Component {
             <BrowserRouter>
                 <div className="container">
                     <SearchForm onSearch={this.performSearch} />
-                    <Nav />
+                    <Nav performSearch={this.performSearch} />
                     {/* Switch only renders the first Route that matches the URL */}
                     <Switch>
                         {/* Render PhotoContainer for each route passing a correspoding data from state as props. */}
                         <Route exact path="/" render={() => <PhotoContainer 
-                            data={this.state.initialData}
+                            data={this.state.photos}
                             isLoading={this.state.loading} />} 
                         />
-                        <Route path="/mountains" render={() => <PhotoContainer 
-                            data={this.state.mountains} 
+                        <Route path="/:query" render={() => <PhotoContainer 
+                            data={this.state.photos} 
                             isLoading={this.state.loading} />} 
                         />
-                        <Route path="/lake" render={() => <PhotoContainer 
-                            data={this.state.lake}
-                            isLoading={this.state.loading} />}
-                        />
-                        <Route path="/forest" render={() => <PhotoContainer 
-                            data={this.state.forest}
-                            isLoading={this.state.loading} />}
-                        /> 
                         <Route path="/search" render={() => <PhotoContainer 
                             data={this.state.photos}
                             isLoading={this.state.loading} />}
