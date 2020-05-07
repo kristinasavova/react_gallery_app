@@ -92,6 +92,9 @@ input {
 .photo-container .not-found {
   width: 100%;
 }
+.photo-container .not-found p {
+  font-size: 1.3em;
+}
 
 .page-not-found {
   padding-top: 2em;

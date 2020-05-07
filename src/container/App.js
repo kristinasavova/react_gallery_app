@@ -29,7 +29,7 @@ class App extends Component {
                 // Axios returns the response from server as `data` 
                 this.setState ({
                     photos: response.data.photos.photo,
-                    loading: false  
+                    loading: false
                 })
             })
             .catch (error => {
@@ -51,21 +51,25 @@ class App extends Component {
             <BrowserRouter>
                 <div className="container">
                     <SearchForm onSearch={this.performSearch} />
-                    <Nav performSearch={this.performSearch} />
+                    <Nav />
                     {/* Switch only renders the first Route that matches the URL */}
                     <Switch>
                         {/* Render PhotoContainer for each route passing a correspoding data from state as props. */}
                         <Route exact path="/" render={() => <PhotoContainer 
                             data={this.state.photos}
-                            isLoading={this.state.loading} />} 
+                            isLoading={this.state.loading}
+                            performSearch={this.performSearch} />} 
                         />
-                        <Route path="/:query" render={() => <PhotoContainer 
+                        <Route path="/:query" render={({ match }) => <PhotoContainer
+                            match={match}
                             data={this.state.photos} 
-                            isLoading={this.state.loading} />} 
+                            isLoading={this.state.loading}
+                            performSearch={this.performSearch} />} 
                         />
                         <Route path="/search" render={() => <PhotoContainer 
                             data={this.state.photos}
-                            isLoading={this.state.loading} />}
+                            isLoading={this.state.loading}
+                            performSearch={this.performSearch} />}
                         />
                         <Route component={RouteNotFound} />
                     </Switch> 

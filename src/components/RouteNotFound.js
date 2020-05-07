@@ -5,7 +5,7 @@ const RouteNotFound = () => {
     return (
         <div className="photo-container">
             <h2>WHOOPS!</h2>
-            <p className="page-not-found">WE COULD'T FIND THE PAGE YOU'RE LOOKING FOR.</p>
+            <p className="page-not-found">WE COULD'T FIND THE PAGE YOU'RE LOOKING FOR</p>
             <nav className="main-nav">
                 <ul>
                     <li><Link to={'/'}>Go Home</Link></li>

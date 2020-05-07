@@ -1,35 +1,49 @@
-import React from 'react'; 
+import React, { Component } from 'react'; 
+import { withRouter } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types'; 
 import Photo from './Photo'; 
 import NotFound from './NotFound';
 
-const PhotoContainer = props => {
+class PhotoContainer extends Component {
+
+    static propTypes = {
+        match: PropTypes.object,
+        data: PropTypes.array.isRequired,
+        isLoading: PropTypes.bool.isRequired,
+        performSearch: PropTypes.func.isRequired
+    };
+
+    componentDidUpdate (prevProps) {
+        if (this.props.match.params.query !== prevProps.match.params.query) {
+            this.props.performSearch (this.props.match.params.query);
+        }
+    };
     
-    const results = props.data;
-    let photos; 
-    // Render photos if search has results  
-    if (results.length > 0 && !props.isLoading) {
+    render () {
+
+        const results = this.props.data;
+        let photos;
+        // Render photos if search has results and if data has already got fetched  
+        if (results.length > 0 && !this.props.isLoading) {
         photos = results.map (photo => 
             <Photo 
-                src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`} 
+                src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`} 
                 key={photo.id} 
                 alt={photo.title} /> );
-    } else if (results.length === 0 && !props.isLoading) {
-        photos = <NotFound />
-    } 
+        } else if (results.length === 0 && !this.props.isLoading) {
+            photos = <NotFound />
+        } 
 
-    return (
-        <div className="photo-container">
-            <h2>{ results.length > 0 ? 'Results' : null }</h2>
-            { props.isLoading ? <h3>Loading...</h3> :
-            <ul>{ photos }</ul> }
-        </div>
-    );  
+        return (
+            <div className="photo-container">
+                <h2>{ results.length > 0 ? 'Results' : null }</h2>
+                { this.props.isLoading ? 
+                <div><Loader type="TailSpin" color="#438bbd" height="80" width="80" /></div> :
+                <ul>{ photos }</ul> }
+            </div>
+        );  
+    };
 };
 
-PhotoContainer.propTypes = {
-    data: PropTypes.array.isRequired,
-    isLoading: PropTypes.bool.isRequired
-}
-
-export default PhotoContainer; 
+export default withRouter (PhotoContainer); 
